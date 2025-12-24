@@ -34,12 +34,20 @@ export default function Home() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const amount = parseFloat(formData.amount);
+    const value = parseFloat(formData.value);
+    
+    if (isNaN(amount) || isNaN(value)) {
+      alert("Please enter valid numbers for amount and value");
+      return;
+    }
+    
     const newAsset: Asset = {
-      id: Date.now().toString(),
+      id: crypto.randomUUID(),
       type: formData.type,
       name: formData.name,
-      amount: parseFloat(formData.amount),
-      value: parseFloat(formData.value),
+      amount,
+      value,
       notes: formData.notes,
     };
     setAssets([...assets, newAsset]);
@@ -106,7 +114,11 @@ export default function Home() {
             <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-2">
               Net Worth
             </h3>
-            <p className={`text-3xl font-bold ${netWorth >= 0 ? 'text-blue-600 dark:text-blue-400' : 'text-red-600 dark:text-red-400'}`}>
+            <p className={`text-3xl font-bold ${
+              netWorth >= 0 
+                ? 'text-blue-600 dark:text-blue-400' 
+                : 'text-red-600 dark:text-red-400'
+            }`}>
               ${netWorth.toFixed(2)}
             </p>
           </div>
