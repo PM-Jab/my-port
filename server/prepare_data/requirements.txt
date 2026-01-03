@@ -1,0 +1,9 @@
+python-dotenv
+yfinance
+pandas
+sqlalchemy
+requests
+psycopg2-binary
+lxml
+selenium 
+webdriver-manager
