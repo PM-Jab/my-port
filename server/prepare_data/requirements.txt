@@ -7,3 +7,4 @@ psycopg2-binary
 lxml
 selenium 
 webdriver-manager
+pytest
