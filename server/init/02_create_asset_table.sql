@@ -18,10 +18,7 @@ CREATE TABLE IF NOT EXISTS asset.stock_books (
     id SERIAL PRIMARY KEY,
     side asset.transaction_side NOT NULL, -- New: BUY or SELL
     symbol VARCHAR(10) NOT NULL,
-    title VARCHAR(100) NOT NULL,
-    industry VARCHAR(100),
-    sub_industry VARCHAR(50),
-    market VARCHAR(50),
+    market VARCHAR(50), -- New: e.g., NYSE, NASDAQ
     amount DECIMAL(18, 4) NOT NULL,       -- Precision for fractional shares
     price DECIMAL(18, 2) NOT NULL,        -- Standard currency precision
     currency VARCHAR(10) DEFAULT 'THB',
@@ -61,4 +58,20 @@ CREATE TABLE IF NOT EXISTS asset.gold_books (
     created_by VARCHAR(50) DEFAULT 'system',
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_by VARCHAR(50) DEFAULT 'system'
+);
+
+CREATE TABLE IF NOT EXISTS asset.stock_details (
+    stock_id SERIAL PRIMARY KEY,        -- Surrogate Primary Key
+    symbol VARCHAR(10) NOT NULL,
+    title VARCHAR(100) NOT NULL,
+    industry VARCHAR(100),
+    sub_industry VARCHAR(50),
+    market VARCHAR(50), -- e.g., NYSE, NASDAQ
+    market_cap BIGINT,
+    ipo_date DATE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by VARCHAR(50) DEFAULT 'system',
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_by VARCHAR(50) DEFAULT 'system',
+    CONSTRAINT uq_symbol_market UNIQUE (symbol, market) -- The Unique Key
 );
